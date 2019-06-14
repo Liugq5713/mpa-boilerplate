@@ -4,7 +4,7 @@
   "description": "多页面HTML脚手架",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --progress --open",
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline  --open",
     "build": "cross-env NODE_ENV=production webpack"
   },
   "repository": {
