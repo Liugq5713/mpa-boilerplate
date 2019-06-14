@@ -72,13 +72,12 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/,
-
+        test: /\.(c|le)ss$/,
         use: [
           dev ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
           'postcss-loader',
-          'less-loader'
+          'less-loader' // 将 Less 编译为 CSS
         ]
       },
 
