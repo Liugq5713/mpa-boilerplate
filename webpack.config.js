@@ -15,7 +15,9 @@ const entry = {}
 const htmlPlugins = []
 for (const path of entries) {
   const template = path.replace('index.js', 'index.html')
-  const chunkName = path.slice('./src/pages/'.length, -'/index.js'.length)
+  console.log('template', template)
+  const chunkName =
+    path.slice('./src/pages/'.length, -'/index.js'.length) || 'index'
   entry[chunkName] = dev ? [path, template] : path
   htmlPlugins.push(
     new HtmlWebpackPlugin({
@@ -27,6 +29,7 @@ for (const path of entries) {
   )
 }
 
+console.log('entry', entry)
 module.exports = {
   mode: dev ? 'development' : 'production',
   devtool: dev ? 'cheap-module-eval-source-map' : 'hidden-source-map',
