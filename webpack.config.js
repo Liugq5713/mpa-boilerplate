@@ -15,8 +15,7 @@ const entry = {}
 const htmlPlugins = []
 for (const path of entries) {
   const template = path.replace('index.js', 'index.html')
-  const chunkName =
-    path.slice('./src/pages/'.length, -'/index.js'.length) || 'index'
+  const chunkName = path.slice('./src/pages/'.length, -'/index.js'.length)
   entry[chunkName] = dev ? [path, template] : path
   htmlPlugins.push(
     new HtmlWebpackPlugin({
