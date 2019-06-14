@@ -15,7 +15,6 @@ const entry = {}
 const htmlPlugins = []
 for (const path of entries) {
   const template = path.replace('index.js', 'index.html')
-  console.log('template', template)
   const chunkName =
     path.slice('./src/pages/'.length, -'/index.js'.length) || 'index'
   entry[chunkName] = dev ? [path, template] : path
@@ -29,7 +28,6 @@ for (const path of entries) {
   )
 }
 
-console.log('entry', entry)
 module.exports = {
   mode: dev ? 'development' : 'production',
   devtool: dev ? 'cheap-module-eval-source-map' : 'hidden-source-map',
@@ -56,7 +54,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: dev ? '[name].js' : '[chunkhash].js',
-    chunkFilename: '[chunkhash].js'
+    chunkFilename: '[chunkhash].js',
+    publicPath: 'http://so-easy.cc/mpa-boilerplate/'
   },
   module: {
     rules: [
