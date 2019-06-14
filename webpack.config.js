@@ -53,7 +53,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: dev ? '[name].js' : '[chunkhash].js',
-    chunkFilename: '[chunkhash].js'
+    chunkFilename: '[chunkhash].js',
+    publicPath: 'http://so-easy.cc/mpa-boilerplate/'
   },
   module: {
     rules: [
