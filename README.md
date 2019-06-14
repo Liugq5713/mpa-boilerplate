@@ -5,7 +5,7 @@
 
 ## Webpack
 
-`npm install webpack webpack-cli webpack-dev-server html-webpack-plugin html-loader css-loader style-loader less-loader file-loader url-loader --save-dev`
+`npm install webpack webpack-cli webpack-dev-server html-webpack-plugin html-loader css-loader style-loader less less-loader file-loader url-loader --save-dev`
 
 使用了 less 作为css预编译引擎，方便安装
 

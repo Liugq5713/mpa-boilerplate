@@ -45,8 +45,7 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/index.html',
-      chunksSortMode: 'none'
+      template: './src/index.html'
     })
   ],
 
