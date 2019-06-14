@@ -51,5 +51,10 @@
     "webpack-cli": "^3.3.4",
     "webpack-dev-server": "^3.7.1",
     "webpack-md5-hash": "0.0.6"
+  },
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.15.0"
   }
 }
