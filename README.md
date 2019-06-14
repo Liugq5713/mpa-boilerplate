@@ -22,6 +22,8 @@
 
 `npm install --save-dev clean-webpack-plugin mini-css-extract-plugin webpack-md5-hash`
 
+`npm install postcss-loader autoprefixer --save-dev`
+
 ## MPA
 
 `npm install --save-dev glob` `npm i -D cross-env`

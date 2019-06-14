@@ -1,8 +1,11 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const WebpackMd5Hash = require('webpack-md5-hash')
+const webpack = require('webpack')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-// const CleanWebpackPlugin = require('clean-webpack-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+// const HtmlWebpackIncludeSiblingChunksPlugin = require('html-webpack-include-sibling-chunks-plugin')
 
 const dev = process.env.NODE_ENV === 'development'
 
@@ -23,15 +26,34 @@ for (const path of entries) {
     })
   )
 }
+
 module.exports = {
+  mode: dev ? 'development' : 'production',
+  devtool: dev ? 'cheap-module-eval-source-map' : 'hidden-source-map',
   entry,
-  mode: 'development',
+  optimization: {
+    runtimeChunk: true,
+    splitChunks: {
+      chunks: 'all'
+    },
+    minimizer: dev
+      ? []
+      : [
+        new UglifyJsPlugin({
+          cache: true,
+          parallel: true,
+          sourceMap: true
+        }),
+        new OptimizeCSSAssetsPlugin()
+      ]
+  },
   node: {
     fs: 'empty'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js'
+    filename: dev ? '[name].js' : '[chunkhash].js',
+    chunkFilename: '[chunkhash].js'
   },
   module: {
     rules: [
@@ -42,11 +64,22 @@ module.exports = {
       },
       {
         test: /\.html$/,
-        use: 'html-loader'
+        use: {
+          loader: 'html-loader',
+          options: {
+            interpolate: true
+          }
+        }
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'less-loader']
+
+        use: [
+          dev ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+          'less-loader'
+        ]
       },
 
       {
@@ -64,19 +97,23 @@ module.exports = {
   },
 
   plugins: [
-    ...htmlPlugins,
+    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'style.[contenthash].css'
+      filename: 'style.[contenthash].css',
+      chunkFilename: '[contenthash].css'
     }),
-    new HtmlWebpackPlugin({
-      inject: false,
-      hash: true,
-      template: './src/index.html',
-      filename: 'index.html'
-    }),
-    new WebpackMd5Hash()
+    new webpack.HashedModuleIdsPlugin(),
+    // new HtmlWebpackIncludeSiblingChunksPlugin(),
+    ...htmlPlugins
   ],
-
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src')
+    }
+  },
+  performance: {
+    hints: dev ? false : 'warning'
+  },
   devServer: {
     contentBase: path.join(__dirname, 'src'),
     compress: true,
