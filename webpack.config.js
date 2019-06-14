@@ -19,10 +19,10 @@ module.exports = {
         use: ['babel-loader', 'eslint-loader']
       },
 
-      {
-        test: /\.html$/,
-        use: 'html-loader'
-      },
+      // {
+      //   test: /\.html$/,
+      //   use: 'html-loader'
+      // },
 
       {
         test: /\.css$/,
@@ -43,16 +43,11 @@ module.exports = {
     ]
   },
 
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './src/index.html'
-    })
-  ],
+  plugins: [new HtmlWebpackPlugin()],
 
   devServer: {
     contentBase: path.join(__dirname, 'src'),
     compress: true,
     port: 9000
   }
-
 }
