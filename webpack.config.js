@@ -63,6 +63,19 @@ module.exports = {
         use: ['babel-loader', 'eslint-loader']
       },
       {
+        test: require.resolve('jquery'),
+        use: [
+          {
+            loader: 'expose-loader',
+            options: 'jQuery'
+          },
+          {
+            loader: 'expose-loader',
+            options: '$'
+          }
+        ]
+      },
+      {
         test: /\.html$/,
         use: {
           loader: 'html-loader',
