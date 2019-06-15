@@ -1,12 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 const dev = process.env.NODE_ENV === 'development'
 
@@ -14,47 +9,27 @@ const glob = require('glob')
 const entries = glob.sync('./src/**/index.js')
 const entry = {}
 const htmlPlugins = []
-for (const path of entries) {
-  const template = path.replace('index.js', 'index.html')
-  const chunkName = path.slice('./src/pages/'.length, -'/index.js'.length)
-  entry[chunkName] = dev ? [path, template] : path
+for (const entryPath of entries) {
+  const template = entryPath.replace('index.js', 'index.html')
+  const chunkName = entryPath.slice('./src/pages/'.length, -'/index.js'.length)
+  entry[chunkName] = dev ? [entryPath, template] : entryPath
   htmlPlugins.push(
     new HtmlWebpackPlugin({
       template,
       filename: chunkName + '.html',
       chunksSortMode: 'none',
-      chunks: [chunkName],
-      files: {
-        js: ['src/shared/jquery.dev.js'],
-        chunks: {
-          head: {
-            entry: 'src/shared/jquery.dev.js'
-          }
-        }
-      }
+      chunks: [chunkName]
     })
   )
 }
 
 module.exports = {
-  mode: dev ? 'development' : 'production',
-  devtool: dev ? 'cheap-module-eval-source-map' : 'hidden-source-map',
   entry,
   optimization: {
     runtimeChunk: true,
     splitChunks: {
       chunks: 'all'
-    },
-    minimizer: dev
-      ? []
-      : [
-        new UglifyJsPlugin({
-          cache: true,
-          parallel: true,
-          sourceMap: true
-        }),
-        new OptimizeCSSAssetsPlugin()
-      ]
+    }
   },
   node: {
     fs: 'empty'
@@ -126,7 +101,6 @@ module.exports = {
   },
 
   plugins: [
-    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: 'style.[contenthash].css',
       chunkFilename: '[contenthash].css'
@@ -135,21 +109,15 @@ module.exports = {
       $: 'jquery',
       jQuery: 'jquery'
     }),
-    new BundleAnalyzerPlugin(),
     new webpack.HashedModuleIdsPlugin(),
     ...htmlPlugins
   ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src')
+      '@': path.resolve(__dirname, '..', 'src')
     }
   },
   performance: {
     hints: dev ? false : 'warning'
-  },
-  devServer: {
-    contentBase: path.join(__dirname, 'src'),
-    compress: true,
-    port: 9000
   }
 }
