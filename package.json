@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline  --open",
     "build": "cross-env NODE_ENV=production webpack",
+    "new": "plop",
     "a": "webpack --profile --json > stats.json && webpack-bundle-analyzer ./stats.json"
   },
   "repository": {
@@ -45,6 +46,7 @@
     "less-loader": "^5.0.0",
     "mini-css-extract-plugin": "^0.7.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "plop": "^2.3.0",
     "postcss-loader": "^3.0.0",
     "style-loader": "^0.23.1",
     "uglifyjs-webpack-plugin": "^2.1.3",

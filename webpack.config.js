@@ -130,6 +130,10 @@ module.exports = {
       filename: 'style.[contenthash].css',
       chunkFilename: '[contenthash].css'
     }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    }),
     new BundleAnalyzerPlugin(),
     new webpack.HashedModuleIdsPlugin(),
     ...htmlPlugins
