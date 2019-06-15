@@ -23,7 +23,7 @@ for (const path of entries) {
       template,
       filename: chunkName + '.html',
       chunksSortMode: 'none',
-      chunks: [chunkName, 'jquery'],
+      chunks: [chunkName],
       files: {
         js: ['src/shared/jquery.dev.js'],
         chunks: {
