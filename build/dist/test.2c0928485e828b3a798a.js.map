@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack:///./src/pages/test/index.js"],"names":["console","log"],"mappings":"iIAGAA,QAAQC,IAAI,YAAa","file":"test.2c0928485e828b3a798a.js","sourcesContent":["import '@/shared/common.js'\nimport './style.less'\n\nconsole.log('i am here', 'test')\n"],"sourceRoot":""}

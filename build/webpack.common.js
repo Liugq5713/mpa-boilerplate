@@ -35,7 +35,8 @@ module.exports = {
     fs: 'empty'
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    // 如果配置文件位置修改了的话，这里路径也要改
+    path: path.resolve(__dirname, '..', 'dist'),
     filename: dev ? '[name].js' : '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].js'
   },
@@ -114,6 +115,7 @@ module.exports = {
   ],
   resolve: {
     alias: {
+      // 如果配置文件位置修改了的话，这里路径也要改
       '@': path.resolve(__dirname, '..', 'src')
     }
   },

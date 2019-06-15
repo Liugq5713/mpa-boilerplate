@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[4],{"2vLl":function(n,o,c){},h2Sf:function(n,o,c){"use strict";c.r(o),function(n){c("2vLl");n("#content").html("hello jquery"),console.log("$",n)}.call(this,c("+2Rf"))}},[["h2Sf",8,0]]]);
