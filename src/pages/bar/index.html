@@ -1,26 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width"
-    />
-    <meta name="format-detection" content="telephone=no" />
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <title>bar</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
   </head>
 
   <body>
-    <div class="bar">
-      ${ require('@/components/header.html') }
-      <h1 id="header">Page Bar</h1>
-      <p>
-        <a href="/foo.html">goto /foo.html</a>
-      </p>
-      <p>
-        <a href="/bar/baz.html">goto /bar/baz.html</a>
-      </p>
+    ${ require('@/components/header.html') }
+    <div id="content">
+      <h1>dddddd=======ddd</h1>
+    </div>
+    <button
+      type="button"
+      class="btn btn-lg btn-danger example-popover"
+      data-toggle="popover"
+      title="Popover title"
+      data-content="And here's some amazing content. It's very engaging. Right?"
+    >
+      Click to toggle popover
+    </button>
+    <div class="alert alert-primary" role="alert">
+      A simple primary alert—check it out!
     </div>
   </body>
 </html>

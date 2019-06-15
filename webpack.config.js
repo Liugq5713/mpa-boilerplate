@@ -6,7 +6,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
-// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 const dev = process.env.NODE_ENV === 'development'
 
@@ -130,7 +130,7 @@ module.exports = {
       filename: 'style.[contenthash].css',
       chunkFilename: '[contenthash].css'
     }),
-    // new BundleAnalyzerPlugin(),
+    new BundleAnalyzerPlugin(),
     new webpack.HashedModuleIdsPlugin(),
     ...htmlPlugins
   ],
