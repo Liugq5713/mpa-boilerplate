@@ -5,7 +5,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-// const HtmlWebpackIncludeSiblingChunksPlugin = require('html-webpack-include-sibling-chunks-plugin')
+
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 const dev = process.env.NODE_ENV === 'development'
 
@@ -22,7 +23,15 @@ for (const path of entries) {
       template,
       filename: chunkName + '.html',
       chunksSortMode: 'none',
-      chunks: [chunkName]
+      chunks: [chunkName, 'jquery'],
+      files: {
+        js: ['src/shared/jquery.dev.js'],
+        chunks: {
+          head: {
+            entry: 'src/shared/jquery.dev.js'
+          }
+        }
+      }
     })
   )
 }
@@ -52,8 +61,8 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: dev ? '[name].js' : '[chunkhash].js',
-    chunkFilename: '[chunkhash].js'
+    filename: dev ? '[name].js' : '[name].[chunkhash].js',
+    chunkFilename: '[name].[chunkhash].js'
   },
   module: {
     rules: [
@@ -85,7 +94,15 @@ module.exports = {
         }
       },
       {
-        test: /\.(c|le)ss$/,
+        test: /\.css$/,
+        use: [
+          dev ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader'
+        ]
+      },
+      {
+        test: /\.less$/,
         use: [
           dev ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
@@ -93,7 +110,6 @@ module.exports = {
           'less-loader' // 将 Less 编译为 CSS
         ]
       },
-
       {
         test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
         use: [
@@ -114,8 +130,8 @@ module.exports = {
       filename: 'style.[contenthash].css',
       chunkFilename: '[contenthash].css'
     }),
+    // new BundleAnalyzerPlugin(),
     new webpack.HashedModuleIdsPlugin(),
-    // new HtmlWebpackIncludeSiblingChunksPlugin(),
     ...htmlPlugins
   ],
   resolve: {

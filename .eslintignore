@@ -1,2 +1,4 @@
 dist/*
+/shared/
+shared/**
 node_modules
