@@ -96,6 +96,7 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: 'style.[contenthash].css',
